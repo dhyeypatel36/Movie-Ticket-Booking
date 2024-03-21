@@ -55,11 +55,16 @@ const seats = document.querySelectorAll('#seatCont .seat');
 seats.forEach((seat) => {
   seat.addEventListener('click' , ()=>{
     if(!seat.classList.contains('selected') && !seat.classList.contains('occupied')){
-      seat.classList.add('selected');
-      pushSeat(seat.getAttribute('data-index'));
-      seatCount(true);
-      totalPrice();
-    }else if(!seat.classList.contains('occupied')){
+      if(document.querySelectorAll('.selected').length > 4){
+        alert('Only 4 seats are allowed per transaction');
+      }else{
+        seat.classList.add('selected');
+        pushSeat(seat.getAttribute('data-index'));
+        seatCount(true);
+        totalPrice();
+      }
+      
+    }else if(!seat.classList.contains('occupied') && seat.classList.contains('selected')){
       seat.classList.remove('selected');
       removeSeat();
       seatCount(false);
